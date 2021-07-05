@@ -1,0 +1,78 @@
+from news.models import User,Author,Post,PostCategory,Comment,Category
+
+
+User.objects.create_user //2 times
+
+User1 = User.objects.create(pesonal_email='sasha@gmail.com' ,personal_info='Good Boy!' ,full_name='Кузьмич Валерий Александрович' ,is_login=True)
+User2 = User.objects.create(pesonal_email='arseniy@gmail.com' ,personal_info='Bad Boy' ,full_name='Волошин Арсений Алексеевич' ,is_login=True)
+User3 = User.objects.create(pesonal_email='guest1@gmail.com')
+
+
+Create Author
+
+Author1 = Author.objects.create(username=User1,rating_of_Author=0)
+Author2 = Author.objects.create(username=User2,rating_of_Author=0)
+
+Add 4 category
+
+
+
+Category1 = Category.objects.create(name = 'sport')
+Category2 = Category.objects.create(name = 'Basketball')
+Category3 = Category.objects.create(name = 'Business')
+Category4 = Category.objects.create(name = 'Programming')
+Category5 = Category.objects.create(name = 'Python technologies')
+Category6 = Category.objects.create(name = 'IT world')
+
+Add 2 article and 1 news
+
+Article1 = Post.objects.create(author = Author1,what_post = 'article',heading='Sport Activities',text='They go in for skiing, skating, table tennis, swimming, volleyball, football, bodybuilding',rating_of_post=1)
+Article2 = Post.objects.create(author = Author2,what_post = 'article',heading='Business',text='Text about Business',rating_of_post=1)
+news1 = Post.objects.create(author = Author2,what_post = 'news',heading='Programming',text='Text about programming',rating_of_post=1)
+
+
+Присвоить им категории (минимум 1-2)
+
+Article1.category_post.add(Category1,Category2)
+Article2.category_post.add(Category3,Category4)
+news1.category_post.add(Category5,Category6)
+
+Создать 4 коментария (в каждом объекте должен быть как минимум один комментарий).
+
+Comment1 = Comment.objects.create(post = Article1, user_comment = User2, text_comment = 'Good article')
+Comment2 = Comment.objects.create(post = Article2, user_comment = User1, text_comment = 'Not bad!')
+Comment3 = Comment.objects.create(post = news1, user_comment = User1, text_comment = 'Very interesting!')
+Comment4 = Comment.objects.create(post = news1, user_comment = User2, text_comment = 'The most exciting new!')
+
+Поставить лайк и дизлайк
+
+Comment1.like()
+Comment4.like()
+Article1.like()
+Article2.like()
+Article2.dislike()
+news1.like()
+news1.like()
+
+
+Обновить рейтинг
+
+Author2.update_rating()
+
+Вывести username и рейтинг лучшего пользователя (применяя сортировку и возвращая поля первого объекта).
+
+a = Author.objects.order_by('-rating_of_Author')[:1]
+for i in a:
+...     i.rating_of_Author
+...     i.username.full_name
+
+Вывести дату добавления, username автора, рейтинг, заголовок и превью лучшей статьи, основываясь на лайках/дислайках к этой статье.
+
+best_new = Post.objects.all().order_by('-rating_of_post').values('date_and_time','author','rating_of_post','heading')[0]
+print(best_new)
+news1.preview()
+
+Вывести все комментарии (дата, пользователь, рейтинг, текст) к этой статье.
+
+all_comments = Comment.objects.all().order_by('-rating_of_comment')
+print(all_comments)
