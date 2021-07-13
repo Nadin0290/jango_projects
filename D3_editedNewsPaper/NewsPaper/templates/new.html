@@ -1,0 +1,44 @@
+<!--  наследуемся от шаблона default.html, который мы создавали ещё во времена flatpages -->
+{% extends 'flatpages/default.html' %} 
+ 
+{% load my_filters %}
+
+{% block title %}
+New
+{% endblock title %}
+ 
+<!-- В контенте на странице мы выводим все товары -->
+{% block content %}
+
+{% if new %}
+<h2>
+        <table>
+            <tr>
+                <td>
+                    Заголовок
+                </td>
+                <td>
+                    Дата
+                </td>
+                <td>
+                    Полный текст
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{ new.heading|Censor }}
+                </td>
+                <td>
+                    {{ new.date_and_time|date:'d M Y g:i' }}
+                </td>
+                <td>
+                    {{ new.text|Censor }}
+                </td>
+            </tr>
+
+        </table>
+</h2>
+{% else %}
+    <h2>Новостей нет</h2>
+{% endif %}
+{% endblock content %}
