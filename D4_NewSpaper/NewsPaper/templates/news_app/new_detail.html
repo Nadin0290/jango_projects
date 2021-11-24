@@ -1,0 +1,22 @@
+{% extends 'flatpages/default.html' %}
+
+{% load custom_filters %}
+
+{% block title %} {{ title }} {% endblock title %}
+
+{% block content %}
+
+<h2>Ваша новость --> {{ new.header|Censor }}</h2>
+<ul style="font-size: 30px;">
+    <li>
+        Автор: {{new.author.author_name}}
+    </li>
+    <li>
+        Текст: {{new.text|Censor}}
+    </li>
+    <li>
+        Дата: {{new.date_time|date:'l F Y G:i'}}
+    </li>
+</ul>
+
+{% endblock content %}
