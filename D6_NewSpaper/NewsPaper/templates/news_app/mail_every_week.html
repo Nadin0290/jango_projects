@@ -14,7 +14,5 @@
     {% for post in post %}
     <h3>{{ post.header }} - {{ post.text }} <a href="{{ post.get_absolute_url }}">Перейти!</a></h3>
     {% endfor %}
-    <!-- <h3><a href="localhost:8000/news/{{ post.id }}">Перейти!</a></h3> не рабоатет-->
-    <h3><a href="{{ post.get_absolute_url }}">Перейти!</a></h3>
 </body>
 </html>
