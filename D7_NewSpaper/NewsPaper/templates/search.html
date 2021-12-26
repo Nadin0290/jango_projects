@@ -1,0 +1,45 @@
+{% extends 'flatpages/default.html' %}
+
+{% load custom_filters %}
+
+{% block title %} {{ title }} {% endblock title %}
+
+{% block content %}
+    {% if news %}
+    <h2>Кол во новостей: {{ news|length }}</h2>
+    <form method="GET">
+        <input type="date">
+        <br>
+        <br>
+        {{ filter.form }} <!-- Форму от фильтров за нас сделает django. А вот кнопку, увы придётся делать самому -->
+        <input type="submit" value="Найти">
+    </form>
+        <table style="margin: 0 auto;font-size: 30px;margin-top: 50px;">
+            <tr>
+                <td>Заголовок</td>
+                <td>Дата публикации</td>
+                <td>Текст</td>
+                <td>Категория</td>
+            </tr>
+            {% for new in filter.qs %}
+            <tr>
+
+                <td>
+                    {{ new.header|Censor }}
+                </td>
+                <td>
+                    {{ new.date_time|date:'d M Y' }}
+                </td>
+                <td>
+                    {{ new.text|truncatewords:4|Censor }}
+                </td>
+                <td>
+                    {{ new.category_type }}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <h4>Нет новостей!</h4>
+    {% endif %}
+{% endblock content %}
