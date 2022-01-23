@@ -1,0 +1,29 @@
+{% extends "main.html" %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+
+<p class="lead text-muted">Привет, {{request.user.username}}! Мы будем держать тебя в курсе последних новостей в твоей категории!</p>
+<form method="POST">
+  {% csrf_token %}
+  <label for="email">Email</label>
+  <input name="email" type="email" value="{{ request.user.email }}">
+
+  <!-- Здесь будет список категорий.  -->
+  <select name="category" size="4">
+
+    {% for category in categories %}
+      <option value="{{ category.id }}">
+          {{ category.category_name }}
+      </option>
+    {% endfor %}
+  </select>
+  <input type="submit" value="Подписаться">
+</form>
+
+<script src="{% static 'js/jquery.js' %}"></script>
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+
+
+{% endblock %}
