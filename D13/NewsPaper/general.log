@@ -1,24 +1,59 @@
-Watching for file changes with StatReloader
-C:\SkillFactory\jango_projects\D13\NewsPaper\NewsApp\views.py changed, reloading.
-Watching for file changes with StatReloader
-C:\SkillFactory\jango_projects\D13\NewsPaper\NewsApp\views.py changed, reloading.
-Watching for file changes with StatReloader
-C:\SkillFactory\jango_projects\D13\NewsPaper\NewsPaper\settings.py changed, reloading.
-Watching for file changes with StatReloader
-C:\SkillFactory\jango_projects\D13\NewsPaper\NewsPaper\settings.py changed, reloading.
-Watching for file changes with StatReloader
-C:\SkillFactory\jango_projects\D13\NewsPaper\NewsPaper\settings.py changed, reloading.
-Watching for file changes with StatReloader
-C:\SkillFactory\jango_projects\D13\NewsPaper\NewsPaper\settings.py changed, reloading.
-Watching for file changes with StatReloader
-Watching for file changes with StatReloader
-Watching for file changes with StatReloader
-Watching for file changes with StatReloader
-Watching for file changes with StatReloader
-C:\SkillFactory\jango_projects\D13\NewsPaper\NewsApp\views.py changed, reloading.
-Watching for file changes with StatReloader
-C:\SkillFactory\jango_projects\D13\NewsPaper\NewsApp\views.py changed, reloading.
-Watching for file changes with StatReloader
-C:\SkillFactory\jango_projects\D13\NewsPaper\NewsApp\views.py changed, reloading.
-Watching for file changes with StatReloader
-C:\SkillFactory\jango_projects\D13\NewsPaper\NewsPaper\settings.py changed, reloading.
+2022-01-31 12:13:47,951 INFO autoreload Watching for file changes with StatReloader
+2022-01-31 12:48:49,194 INFO autoreload C:\Users\miste\jango_projects\D13\NewsPaper\NewsPaper\settings.py changed, reloading.
+2022-02-01 22:46:54,149 INFO autoreload Watching for file changes with StatReloader
+2022-02-01 22:49:46,496 INFO autoreload C:\Users\miste\jango_projects\D13\NewsPaper\NewsPaper\settings.py changed, reloading.
+2022-02-01 22:51:07,271 INFO autoreload Watching for file changes with StatReloader
+2022-02-01 22:51:24,900 INFO autoreload C:\Users\miste\jango_projects\D13\NewsPaper\NewsApp\views.py changed, reloading.
+2022-02-01 22:51:25,471 INFO autoreload Watching for file changes with StatReloader
+2022-02-01 22:51:52,501 INFO autoreload C:\Users\miste\jango_projects\D13\NewsPaper\NewsApp\views.py changed, reloading.
+2022-02-01 22:51:53,073 INFO autoreload Watching for file changes with StatReloader
+2022-02-02 22:15:57,920 INFO autoreload Watching for file changes with StatReloader
+2022-02-02 22:18:24,893 INFO autoreload C:\Users\miste\jango_projects\D13\NewsPaper\NewsPaper\settings.py changed, reloading.
+2022-02-02 22:18:25,391 INFO autoreload Watching for file changes with StatReloader
+2022-02-02 22:22:33,393 INFO autoreload C:\Users\miste\jango_projects\D13\NewsPaper\NewsApp\views.py changed, reloading.
+2022-02-02 22:22:33,925 INFO autoreload Watching for file changes with StatReloader
+2022-02-02 22:22:48,831 INFO autoreload C:\Users\miste\jango_projects\D13\NewsPaper\NewsApp\views.py changed, reloading.
+2022-02-02 22:22:49,359 INFO autoreload Watching for file changes with StatReloader
+2022-02-02 22:32:19,692 INFO autoreload C:\Users\miste\jango_projects\D13\NewsPaper\NewsPaper\settings.py changed, reloading.
+INFO 2022-02-02 22:32:20,233 autoreload Watching for file changes with StatReloader
+INFO 2022-02-02 22:32:29,981 basehttp "GET /news/ HTTP/1.1" 200 9120
+INFO 2022-02-02 22:32:32,590 basehttp "GET /news/9/ HTTP/1.1" 200 1696
+INFO 2022-02-02 22:33:17,157 autoreload C:\Users\miste\jango_projects\D13\NewsPaper\NewsPaper\settings.py changed, reloading.
+2022-02-02 22:33:17,761 INFO autoreload Watching for file changes with StatReloader
+2022-02-02 22:37:48,258 INFO autoreload C:\Users\miste\jango_projects\D13\NewsPaper\NewsPaper\settings.py changed, reloading.
+2022-02-02 22:37:48,862 INFO autoreload Watching for file changes with StatReloader
+2022-02-02 22:38:11,452 INFO autoreload C:\Users\miste\jango_projects\D13\NewsPaper\NewsPaper\settings.py changed, reloading.
+2022-02-02 22:38:11,967 INFO autoreload Watching for file changes with StatReloader
+2022-02-02 22:39:03,464 INFO autoreload C:\Users\miste\jango_projects\D13\NewsPaper\NewsPaper\settings.py changed, reloading.
+2022-02-02 22:39:03,960 INFO autoreload Watching for file changes with StatReloader
+2022-02-02 22:40:21,628 INFO autoreload C:\Users\miste\jango_projects\D13\NewsPaper\NewsPaper\settings.py changed, reloading.
+2022-02-02 22:40:22,183 INFO autoreload Watching for file changes with StatReloader
+2022-02-02 22:40:25,479 INFO basehttp "GET /news/ HTTP/1.1" 200 9120
+2022-02-02 22:41:01,346 INFO autoreload C:\Users\miste\jango_projects\D13\NewsPaper\NewsPaper\settings.py changed, reloading.
+2022-02-02 22:41:01,844 INFO autoreload Watching for file changes with StatReloader
+2022-02-02 22:41:14,286 INFO basehttp "GET /news/ HTTP/1.1" 200 9120
+2022-02-02 22:41:21,563 INFO basehttp "GET /news/9/ HTTP/1.1" 200 1696
+2022-02-03 18:57:18,497 INFO autoreload Watching for file changes with StatReloader
+2022-02-03 18:57:31,095 INFO basehttp "GET /news/ HTTP/1.1" 200 9120
+2022-02-03 18:57:31,248 INFO basehttp "GET /static/js/jquery.js HTTP/1.1" 304 0
+2022-02-03 18:57:35,366 INFO basehttp "GET /static/css/bootstrap.min.css HTTP/1.1" 304 0
+2022-02-03 18:57:39,499 INFO basehttp "GET /static/js/bootstrap.bundle.min.js HTTP/1.1" 304 0
+2022-02-03 18:57:47,739 WARNING log Not Found: /favicon.ico
+2022-02-03 18:57:51,871 WARNING basehttp "GET /favicon.ico HTTP/1.1" 404 2324
+2022-02-03 18:59:21,783 INFO basehttp "GET /news/9/ HTTP/1.1" 200 1696
+2022-02-03 19:00:53,316 INFO autoreload C:\Users\miste\jango_projects\D13\NewsPaper\NewsPaper\settings.py changed, reloading.
+2022-02-03 19:14:54,387 INFO autoreload Watching for file changes with StatReloader
+2022-02-03 19:15:03,413 INFO basehttp "GET /news/ HTTP/1.1" 200 9120
+2022-02-03 19:15:38,963 INFO autoreload C:\Users\miste\jango_projects\D13\NewsPaper\NewsPaper\settings.py changed, reloading.
+2022-02-03 19:15:43,644 INFO autoreload Watching for file changes with StatReloader
+2022-02-03 19:15:45,268 INFO basehttp "GET /news/ HTTP/1.1" 200 9120
+2022-02-03 19:16:38,317 INFO autoreload C:\Users\miste\jango_projects\D13\NewsPaper\NewsPaper\settings.py changed, reloading.
+2022-02-03 19:16:39,612 INFO autoreload Watching for file changes with StatReloader
+2022-02-03 19:16:50,385 INFO basehttp "GET /news/ HTTP/1.1" 200 9120
+2022-02-03 19:16:54,570 INFO basehttp "GET /news/9/ HTTP/1.1" 200 1696
+2022-02-03 19:16:58,296 INFO basehttp "GET /news/ HTTP/1.1" 200 9120
+2022-02-03 19:50:32,468 INFO autoreload C:\Users\miste\jango_projects\D13\NewsPaper\NewsPaper\settings.py changed, reloading.
+2022-02-03 19:50:33,815 INFO autoreload Watching for file changes with StatReloader
+2022-02-03 19:51:50,347 INFO autoreload C:\Users\miste\jango_projects\D13\NewsPaper\NewsPaper\settings.py changed, reloading.
+2022-02-03 19:51:51,583 INFO autoreload Watching for file changes with StatReloader
+2022-02-03 19:54:06,621 INFO autoreload C:\Users\miste\jango_projects\D13\NewsPaper\NewsPaper\settings.py changed, reloading.

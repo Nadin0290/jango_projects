@@ -24,14 +24,14 @@ from django.core.mail import EmailMultiAlternatives  # импортируем к
 from django.template.loader import render_to_string
 from django.core.mail import mail_admins # импортируем функцию для массовой отправки писем админам
 from django.contrib.auth.models import Group
-import logging
+# import logging
 
-logger = logging.getLogger(__name__)
+# logger = logging.getLogger(__name__)
 
 
 # Create your views here.
 class NewsList(ListView):
-    logger.info('info') # что бы я не крутил, в файл general.log ничего не записывается кроме StatReloader:(
+    # logger.info('INFO') # что бы я не крутил, в файл general.log ничего не записывается кроме StatReloader:(
     model = Post
     template_name = 'news.html'
     context_object_name = 'news'
@@ -154,7 +154,7 @@ class NewUpdateView(PermissionRequiredMixin,UpdateView):
 
 # дженерик для для получения деталей о новости
 class NewDetailView(DetailView):
-    logger.info('INFO')
+    # logger.info('INFO')
     model = Post
     context_object_name = 'new'
     template_name = 'news_app/new_detail.html'

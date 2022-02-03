@@ -60,17 +60,17 @@ ADMINS = [
 
 
 
-# SERVER_EMAIL = 'arseniy.reima@gmail.com'  # это будет у нас вместо аргумента FROM в массовой рассылке
+SERVER_EMAIL = 'arseniy.reima@gmail.com'  # это будет у нас вместо аргумента FROM в массовой рассылке
 
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = 'smtp.gmail.com'  # адрес сервера Гугл-почты для всех один и тот же
-# EMAIL_PORT = 465  # порт smtp сервера тоже одинаковый
-# EMAIL_HOST_USER = 'arseniy.reima'  # ваше имя пользователя, например, если ваша почта user@yandex.ru, то сюда надо писать user, иными словами, это всё то что идёт до собаки
-# EMAIL_HOST_PASSWORD = 'fpw40_arseniy'  # пароль от почты
-# EMAIL_USE_SSL = True  # Гугл использует ssl, подробнее о том, что это, почитайте в дополнительных источниках, но включать его здесь обязательно
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # адрес сервера Гугл-почты для всех один и тот же
+EMAIL_PORT = 465  # порт smtp сервера тоже одинаковый
+EMAIL_HOST_USER = 'arseniy.reima'  # ваше имя пользователя, например, если ваша почта user@yandex.ru, то сюда надо писать user, иными словами, это всё то что идёт до собаки
+EMAIL_HOST_PASSWORD = 'fpw40_arseniy'  # пароль от почты
+EMAIL_USE_SSL = True  # Гугл использует ssl, подробнее о том, что это, почитайте в дополнительных источниках, но включать его здесь обязательно
 
-# #D6
-# DEFAULT_FROM_EMAIL = EMAIL_HOST_USER + '@gmail.com'  # здесь указываем уже свою ПОЛНУЮ почту, с которой будут отправляться письма
+#D6
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER + '@gmail.com'  # здесь указываем уже свою ПОЛНУЮ почту, с которой будут отправляться письма
 
 SITE_ID = 1
 
@@ -212,6 +212,22 @@ LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
 
+    'filters': {
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse',
+        },
+        # 'special': { # не разобрался как отправлять на почту (но знаю, что как-то связано с этим фильтром )
+        #     '()': 'NewsPaper.logging.SpecialFilter',
+        #     'foo': 'bar',
+        # },
+
+    },
+
+
+
     'handlers': {
         'console': {
             'level': 'DEBUG',
@@ -231,7 +247,7 @@ LOGGING = {
             'formatter': 'hard',
             'filters': ['require_debug_true'],
         },
-        'general':{ # что бы я не крутил, в файл general.log ничего не записывается кроме StatReloader:(
+        'general':{
             'level': 'INFO',
             'class': 'logging.FileHandler',
             'filename': 'general.log',
@@ -264,32 +280,27 @@ LOGGING = {
     'loggers': {
         'django': {
             'handlers': ['console','general','warning','error&critical'],
-            'level': 'DEBUG',
+            'level':'DEBUG',
             'propagate': True,
         },
         'django.request': {
             'handlers': ['errors','mail_admins'],
-            'level': 'ERROR',
             'propagate': True,
         },
         'django.server': {
             'handlers': ['errors', 'mail_admins'],
-            'level': 'ERROR',
             'propagate': True,
         },
         'django.template': {
             'handlers': ['errors'],
-            'level': 'ERROR',
             'propagate': True,
         },
         'django.db_backends': {
             'handlers': ['errors'],
-            'level': 'ERROR',
             'propagate': True,
         },
         'django.security': {
             'handlers': ['security'],
-            'level': 'INFO',
             'propagate': True,
         },
     },
@@ -297,50 +308,43 @@ LOGGING = {
 
     'formatters': {
         'debug': {
-            'format': '{asctime} {levelname} {message}',
-            'datetime': '%m.%d %H:%M',
-            'style':'{',
+            'format': '%(asctime)s %(levelname)s %(message)s',
+            # 'datetime': '%m.%d %H:%M',
+
         },
         'warn': {
-            'format': '{asctime} {levelname} {message} {pathname}',
-            'datetime': '%H:%M',
-            'style':'{',
+            'format': '%(asctime)s %(levelname)s %(message)s %(pathname)s',
+            # 'datetime': '%H:%M',
+
         },
         'hard': {
-            'format': '{asctime} {levelname} {message} {pathname} {exc_info}',
-            'datetime': '%H:%M',
-            'style':'{',
+            'format': '%(asctime)s %(levelname)s %(message)s %(pathname)s %(exc_info)s',
+            # 'datetime': '%H:%M',
+
         },
         'general': {
-            'format': '{asctime} {levelname} {module} {message}',
-            'datetime': '%H:%M',
-            'style':'{',
+            'format': '%(asctime)s %(levelname)s %(module)s %(message)s',
+            # 'datetime': '%H:%M',
+
         },
         'errors': {
-            'format': '{asctime} {levelname} {message} {pathname} {exc_info}',
-            'datetime': '%H:%M',
-            'style':'{',
+            'format': '%(asctime)s %(levelname)s %(message)s %(pathname)s %(exc_info)s',
+            # 'datetime': '%H:%M',
+
         },
-        'security': {
-            'format': '{asctime} {levelname} {module} {message}',
-            'datetime': '%H:%M',
-            'style':'{',
+        'security':{
+            'format': '%(asctime)s %(levelname)s %(module)s %(message)s',
+            # 'datetime': '%H:%M',
+
         },
         'mail': {
-            'format': '{asctime} {levelname} {message} {pathname}',
-            'datetime': '%H:%M',
-            'style':'{',
+            'format': '%(asctime)s %(levelname)s %(message)s %(pathname)s',
+            # 'datetime': '%H:%M',
+
         },
     },
 
 
-    'filters': {
-        'require_debug_true': {
-            '()': 'django.utils.log.RequireDebugTrue',
-        },
-        'require_debug_false': {
-            '()': 'django.utils.log.RequireDebugFalse',
-        },
-    },
 
 }
+
