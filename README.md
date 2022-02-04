@@ -8,7 +8,7 @@
 ```bash
 python -m venv venv
 venv\scripts\activate
-pip install Django django-filter django-allauth django-apsheduler, redis
+pip install Django django-filter django-allauth django-apscheduler, redis
 py manage.py runserver
 ```
 
