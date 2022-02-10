@@ -65,24 +65,24 @@
 
 
 
-# # уведомляем подписчика, что он подписался
-# @receiver(post_save, sender=Subscriber)
-# def notify_new_subscriber(sender, instance, created, **kwargs):
+# уведомляем подписчика, что он подписался
+@receiver(post_save, sender=Subscriber)
+def notify_new_subscriber(sender, instance, created, **kwargs):
 
-#     if created: # если добавился подписчик
+    if created: # если добавился подписчик
 
-#         html_content = render_to_string(
-#             'news_app/mail_new_subscribers.html',
-#             {
-#                 'subscriber': instance,
-#             }
-#         )
+        html_content = render_to_string(
+            'news_app/mail_new_subscribers.html',
+            {
+                'subscriber': instance,
+            }
+        )
 
-#         msg = EmailMultiAlternatives(
-#             subject= f'Вы подписались на категорию {instance.category.category_name}',
-#             from_email= 'arseniy.reima@gmail.com',
-#             to=[instance.email],  # это то же, что и recipients_list
-#         )
-#         msg.attach_alternative(html_content, "text/html")  # добавляем html
+        msg = EmailMultiAlternatives(
+            subject= f'Вы подписались на категорию {instance.category.category_name}',
+            from_email= 'arseniy.reima@gmail.com',
+            to=[instance.email],  # это то же, что и recipients_list
+        )
+        msg.attach_alternative(html_content, "text/html")  # добавляем html
 
-#         msg.send()  # отсылаем
+        msg.send()  # отсылаем

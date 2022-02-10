@@ -1,0 +1,154 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-02-04 15:17+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\NewsApp\forms.py:7 .\NewsApp\forms.py:14
+#, fuzzy
+#| msgid "Автор:"
+msgid "Вы автор?"
+msgstr "Author:"
+
+#: .\templates\flatpages\default.html:28
+msgid "News Portal"
+msgstr "News Portal"
+
+#: .\templates\flatpages\default.html:44
+#: .\templates\news_app\subscribe.html:23
+msgid "Подписаться"
+msgstr "Subscribe"
+
+#: .\templates\flatpages\default.html:47
+msgid "Обнулить счетчик"
+msgstr "Reset counter"
+
+#: .\templates\flatpages\default.html:53 .\templates\sign\signup.html:14
+msgid "Зарегестрироваться"
+msgstr "Registration"
+
+#: .\templates\flatpages\default.html:54
+msgid "Логин"
+msgstr "Login"
+
+#: .\templates\flatpages\default.html:71
+msgid "Подтвердить"
+msgstr "Confirm"
+
+#: .\templates\main.html:8
+msgid "На главную"
+msgstr "Main page"
+
+#: .\templates\new.html:12 .\templates\news_app\new_detail.html:12
+msgid "Ваша новость:"
+msgstr "Your new:"
+
+#: .\templates\new.html:15 .\templates\news_app\new_delete.html:11
+#: .\templates\news_app\new_detail.html:15
+msgid "Автор:"
+msgstr "Author:"
+
+#: .\templates\new.html:18 .\templates\news_app\new_delete.html:14
+#: .\templates\news_app\new_detail.html:18
+msgid "Текст:"
+msgstr "Text:"
+
+#: .\templates\new.html:21 .\templates\news_app\new_delete.html:17
+#: .\templates\news_app\new_detail.html:21
+msgid "Дата:"
+msgstr "Date:"
+
+#: .\templates\new.html:26 .\templates\news_app\new_detail.html:26
+#, fuzzy
+#| msgid "Нет новостей!"
+msgid "Нет такой новости!"
+msgstr "No news!"
+
+#: .\templates\news.html:10
+msgid "Кол во новостей:"
+msgstr "Number of news:"
+
+#: .\templates\news.html:13
+msgid "Заголовок"
+msgstr "Header"
+
+#: .\templates\news.html:14
+msgid "Дата публикации"
+msgstr "Date publication"
+
+#: .\templates\news.html:15
+msgid "Текст"
+msgstr "Text"
+
+#: .\templates\news.html:16
+msgid "Категория"
+msgstr "Category"
+
+#: .\templates\news.html:17
+msgid "Тип"
+msgstr "Type"
+
+#: .\templates\news.html:23
+msgid "Редактировать"
+msgstr "Edit"
+
+#: .\templates\news.html:25
+msgid "Удалить"
+msgstr "Delete"
+
+#: .\templates\news.html:46
+msgid "Нет новостей!"
+msgstr "No news!"
+
+#: .\templates\news.html:49
+msgid "Добавить новость"
+msgstr "Your new:"
+
+#: .\templates\news_app\new_create.html:10 .\templates\sign\signup.html:10
+msgid "Стать автором!"
+msgstr "Be author!"
+
+#: .\templates\news_app\new_delete.html:8
+msgid "Ваша новость"
+msgstr "Your new:"
+
+#: .\templates\news_app\subscribe.html:8
+msgid "Привет,"
+msgstr "Hi!"
+
+#: .\templates\news_app\subscribe.html:8
+msgid "Мы будем держать тебя в курсе последних новостей в твоей категории!"
+msgstr "We will keep you up to date with the latest news in your category!"
+
+#: .\templates\news_app\subscribe.html:11
+msgid "Email"
+msgstr "Email"
+
+#: .\templates\sign\logout.html:4
+msgid "Вы вышли из системы"
+msgstr "You've logged out"
+
+#: .\templates\sign\signup.html:6
+msgid "Добро пожаловать"
+msgstr "Welcome!"
+
+#: .\templates\sign\signup.html:8
+msgid "Выйти"
+msgstr "Exit"
+
+#: .\templates\sign\signup.html:13
+msgid "Пользователь не зарегестрирован!"
+msgstr "User has not registered!"

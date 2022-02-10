@@ -1,0 +1,28 @@
+{% extends 'flatpages/default.html' %}
+
+
+{% load i18n %}
+
+{% load custom_filters %}
+
+{% block title %} {{ title }} {% endblock title %}
+
+{% block content %}
+    {% if new %}
+        <h2>{% trans "Ваша новость:" %} {{ new.header|Censor }}</h2>
+        <ul style="font-size: 30px;">
+            <li>
+                {% trans "Автор:" %} {{new.author.author_name }}
+            </li>
+            <li>
+                {% trans "Текст:" %} {{new.text|Censor}}
+            </li>
+            <li>
+                {% trans "Дата:" %} {{new.date_time|date:'l F Y G:i'}}
+            </li>
+        </ul>
+
+    {% else %}
+        <h4>{% trans "Нет такой новости!" %}</h4>
+    {% endif %}
+{% endblock content %}

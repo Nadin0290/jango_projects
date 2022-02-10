@@ -1,0 +1,19 @@
+{% extends 'head.html' %}
+
+{% load static %}
+{% block content %}
+<section class="u-align-center u-clearfix u-grey-5 u-section-1" id="sec-6b69">
+    <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+      <h1 class="u-text u-text-default u-text-1">Registration</h1>
+      <form method="POST" class="u-clearfix u-form-spacing-20 u-form-vertical u-inner-form" style="padding: 10px" source="custom" name="form">
+        {% csrf_token %}
+        <div class="u-form-group u-form-name u-label-none">
+          <label for="code" class="u-label">Code</label>
+          <input type="text" placeholder="Enter your code:" id="name-3b9a" name="code" class="u-border-2 u-border-black u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle u-input-1" required="">
+        </div>
+      </form>
+    </div>
+</section>
+
+
+{% endblock content %}

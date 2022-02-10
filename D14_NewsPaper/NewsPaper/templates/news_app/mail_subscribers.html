@@ -1,0 +1,21 @@
+{% load custom_filters %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Привет, {{ subscriber.user }}</h1>
+    <h2>Автор {{ post.author }} добавил новый пост, в вашей категории!</h2>
+    <h3>Тип категории: {{ post.category_type|MyType }}</h3>
+    <h3>Категория: {{ category.category_name }}</h3>
+    <h3>Заголовок: {{ post.header|Censor }}</h4>
+    <h3>Краткое содержание: {{ post.text|truncatewords:5 }}</h3>
+    <!-- <h3><a href="localhost:8000/news/{{ post.id }}">Перейти!</a></h3> не рабоатет-->
+    <h3><a href="{{ post.get_absolute_url }}">Перейти!</a></h3>
+</body>
+</html>

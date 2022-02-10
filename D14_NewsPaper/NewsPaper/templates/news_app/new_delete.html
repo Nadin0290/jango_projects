@@ -1,0 +1,24 @@
+{% extends 'flatpages/default.html' %}
+{% load i18n %}
+{% load custom_filters %}
+{% block title %} News list {% endblock title %}
+
+{% block content %}
+<h2>{% trans "Вы действительно хотите удалить данную новость? %}"</h2>
+<h2>{% trans "Ваша новость" %} {{ new.header|Censor }}</h2>
+<ul style="font-size: 30px;">
+    <li>
+        {% trans "Автор:" %} {{new.author.author_name }}
+    </li>
+    <li>
+        {% trans "Текст:" %} {{new.text|Censor}}
+    </li>
+    <li>
+        {% trans "Дата:" %} {{new.date_time|date:'l F Y G:i'}}
+    </li>
+</ul>
+
+<form method="POST">
+    {% csrf_token %}
+    <input type="submit" value="подтвердить"></form>
+{% endblock content %}

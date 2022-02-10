@@ -1,0 +1,36 @@
+{% extends 'head.html' %}
+
+{% load static %}
+{% block content %}
+{% if not request.user.username %}
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Sign up</button>
+</form>
+{% else %}
+  <section class="u-clearfix u-section-1" id="sec-564d">
+    <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+      <div class="u-clearfix u-expanded-width u-layout-wrap u-layout-wrap-1">
+        <div class="u-gutter-0 u-layout">
+          <div class="u-layout-row">
+            <div class="u-align-left u-container-style u-layout-cell u-left-cell u-size-35 u-layout-cell-1">
+              <div class="u-container-layout u-container-layout-1">
+                <h2 class="u-text u-text-1">Добро пожаловать, {{ request.user.username }}!</h2>
+              </div>
+            </div>
+            <div class="u-align-left u-container-style u-layout-cell u-right-cell u-size-25 u-layout-cell-2">
+              <div class="u-container-layout u-container-layout-2">
+                <h5 class="u-text u-text-2">Информация:<br>Email:{{ request.user.email }}&nbsp;<br>Username: {{ request.user.username }}
+                </h5>
+                <a href="{% url 'feedback' %}" class="u-black u-btn u-button-style u-btn-1">Feedback</a>
+                <a href="{% url 'logout' %}" class="u-black u-btn u-button-style u-btn-1">Logout</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endif %}
+{% endblock content %}
