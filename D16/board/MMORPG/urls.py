@@ -1,19 +1,18 @@
+from unicodedata import name
 from django.urls import path
 from django.contrib.auth.views import LoginView, LogoutView
 from .views import *
 urlpatterns = [
-    path('logout/',
-         LogoutView.as_view(template_name = 'MMORPG/logout.html'),
-         name='logout'),
     path('' , MainView.as_view(), name = 'main_page'),
     path('feedback/', FeedbackView.as_view(), name='feedback'),
-    path('registration/', signup, name='registration'),
-    # path('registration/check', RegisterAuthView.as_view(), name='register_check'),
-    # path('<int:pk>/',NewDetailView.as_view(), name='new_detail'),
+    path('add/', PostCreateView.as_view(), name='post_create'),
+    path('<int:pk>/',PostDetailView.as_view(), name='post_detail'),
+    path('<int:pk>/edit/', PostUpdateView.as_view(), name='post_update'),
+    path('myposts/',AuthorView.as_view(), name='author_posts'),
+    path('myposts/replies/<int:pk>', RepliesView.as_view(), name='post_replies'),
     # path('search/', NewsSearch.as_view()),
     # path('add/', NewCreateView.as_view(), name='new_create'),
-    # path('<int:pk>/edit/', NewUpdateView.as_view(), name='new_update'),
-    # path('<int:pk>/delete/', NewDeleteView.as_view(), name='new_delete'),
+
     # path('subscribe/',SubscribeView.as_view(), name='subscribe'),
 
     # path('set_author/',upgrade_me, name='set_author'),

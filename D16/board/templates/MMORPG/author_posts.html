@@ -1,0 +1,41 @@
+{% extends 'head.html' %}
+
+{% load static %}
+{% block content %}
+<h2>Мои посты</h2>
+{% if author_posts %}
+    <form method="GET">
+        <!-- <input type="text"> -->
+        {{ filter.form }} <!-- Форму от фильтров за нас сделает django. А вот кнопку, увы придётся делать самому -->
+        <input type="submit" value="Найти">
+    </form>
+
+    {% for post in filter.qs %}
+        <div class="content">
+            <div class="header">
+                <div class="icon">
+                    {{post.post_author.author_icon|safe}}
+                </div>
+                <div class="header-content">
+                    <h4>{{ post.post_author }}</h4>
+                    <h3>{{ post.post_header }}</h3>
+                </div>
+            </div>
+            <div class="img-content">
+                {{ post.post_content|safe }}
+            </div>
+            <div class="link">
+                <a class="btn btn-primary my-2" href="{% url 'post_update' post.pk %}"><u>Редактировать</u></a>
+            </div>
+            <div class="link">
+                <a class="btn btn-primary my-2" href="{% url 'post_replies' post.pk %}"><u>Отклики</u></a>
+            </div>
+            <div >
+                <p>Было бы очень здорово вывести сюда комментарии поста с проверкой автора но получилось только через отдельную вкладку ))</p>
+            </div>
+    {% endfor %}
+{% else %}
+    <h4>У вас еще нет постов!</h4>
+{% endif %}
+
+{% endblock content %}

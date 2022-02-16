@@ -1,0 +1,12 @@
+{% extends 'head.html' %}
+
+{% load static %}
+{% block content %}
+<div class="register">
+  <form action="" method="post">
+    {% csrf_token %}
+    <input type="email" name="email" placeholder="email" value="misterarsemon4ik@gmail.com">
+    <button type="submit">Получить код</button>
+  </form>
+</div>
+{% endblock content %}

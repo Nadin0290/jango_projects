@@ -1,0 +1,20 @@
+{% extends "head.html" %}
+
+{% block content %}
+
+{% if request.user %}
+  <div class="content">
+    <div class="profile-info">
+      <div class="icon">
+        {{ request.user.author.author_icon|safe }}
+      </div>
+      <div class="info">
+        <h3>{{request.user.username}}</h3>
+        <h3>{{request.user.email}}</h3>
+      </div>
+    </div>
+  </div>
+  <a href="{% url 'feedback' %}" class="btn btn-primary my-2" >Feedback</a>
+  <a href="{% url 'logout' %}" class="btn btn-primary my-2" >Logout</a>
+  {% endif %}
+{% endblock %}

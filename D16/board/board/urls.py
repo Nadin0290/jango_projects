@@ -18,8 +18,10 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('MMORPG.urls')),
+    path('posts/', include('MMORPG.urls')),
     path('summernote/', include('django_summernote.urls')),
+    path('sign/',include ('sign.urls')),
+    path('accounts/',include('allauth.urls')),
 ]
 
 from django.conf import settings

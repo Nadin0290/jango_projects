@@ -26,7 +26,17 @@ SECRET_KEY = 'django-insecure-x&7fk0^@f@f+g1o$p-h7!c019-w6d=$7i)1_hufimaajq9@eqx
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost','127.0.0.1']
+SITE_ID = 1
+
+
+LOGIN_URL = '/accounts/login/' # адрес для перенаправления на страницу входа в систему
+
+LOGIN_REDIRECT_URL = "/sign/profile/"  # адрес перенаправления после успешного входа.
+
+# Чтобы allauth распознал нашу форму как ту (автоматов добавлялись разег пользователи в группу авторов для доступа к созданию обявлений)
+ACCOUNT_FORMS = {'signup': 'sign.forms.BasicSignupForm'}
+
 
 #MEDIA
 MEDIA_URL = '/media/'
@@ -57,7 +67,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'MMORPG',
+    'sign',
     'django_summernote', # for media creation
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
 ]
 
 MIDDLEWARE = [

@@ -1,0 +1,38 @@
+
+/* .register{
+    display: flex;
+    flex-direction: column;
+    border: 2px solid black;
+} */
+
+
+
+.content{
+    display: flex;
+    flex-direction: column;
+    border: 2px solid black;
+
+}
+
+.reply{
+    display: flex;
+    justify-content: center;
+}
+.like{
+    margin: 0 0 0 5%;
+}
+
+.header{
+    display: flex;
+
+}
+
+.edit button{
+    width: 100px;
+    height: 50px;
+}
+
+.comments{
+    border: 1px solid black;
+}
+

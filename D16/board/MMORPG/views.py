@@ -1,97 +1,148 @@
+from pickletools import read_uint1
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, CreateView,ListView,DeleteView, UpdateView, DetailView
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.auth import authenticate, login
 from .models import *
 from django.core.mail import send_mail
 from django.core.mail import EmailMultiAlternatives  # импортируем класс для создание объекта письма с html
 from django.template.loader import render_to_string
+from django.contrib.auth.decorators import login_required
 # Create your views here.
-from .forms import SignUpForm, CheckForm
+from .forms import *
+from random import randint
+from .filters import PostFilter
 
-class MainView(TemplateView):
+class MainView(ListView):
+    model = Post
     template_name = 'MMORPG/index.html'
+    context_object_name = 'posts'
+    queryset = Post.objects.all()
+
+    def post(self,request, *args, **kwargs):
+        post_id = request.POST.get('cur_post_id', None)
+        if post_id is not None:
+            post = Post.objects.get(id=post_id)
+            post.like()
+            post.save()
+        return super().get(request)
+
+class AuthorView(ListView):
+    model = Post
+    template_name = 'MMORPG/author_posts.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.request.user
+        authors_posts = Post.objects.filter(post_author__author_name=user)
+        context['author_posts'] = authors_posts
+        context['filter'] = PostFilter(self.request.GET, queryset=authors_posts)
+        return context
+
+class RepliesView(ListView):
+    model = Comment
+    template_name = 'MMORPG/post_replies.html'
+    context_object_name = 'commentss'
+    queryset = Comment.objects.all()
+
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        post_id = self.kwargs.get('pk',None)
+        context['comments'] = Comment.objects.filter(comment_post__id=post_id, comment_online=False)
+        # context['comments'] = Comment.objects.all()
+        return context
+
+    def post(self,request, pk):
+        user = self.request.user
+        good_sign = self.request.POST.get('get_id')
+        bad_sign = self.request.POST.get('delete_id')
+        if good_sign is not None:
+            id = good_sign
+            comment = Comment.objects.get(id=id)
+            comment.comment_online = True
+            comment.save()
+        if bad_sign is not None:
+            id = bad_sign
+            comment = Comment.objects.get(id=id)
+            comment.delete()
+        return super().get(request)
+
+
 class FeedbackView(TemplateView):
     template_name = 'MMORPG/Feedback.html'
 
-# class RegisterAuthView(TemplateView):
-#     model = User
-#     template_name = 'MMORPG/code_auth.html'
+class LoginAuthView(PermissionRequiredMixin,TemplateView):
+    template_name = 'MMORPG/login.html'
+    success_url= '/registration/'
 
-#     def post(self,request, *args,**kwargs):
-#         code = request.POST['code']
-#         if OneTimeCode.objects.filter(code=code, user__username=self.request.user).exists():
-#             login(request, request.user)
-#         else:
-#             print('auth problem')
+    def post(self,request, *args,**kwargs):
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('../registration/')
+        return super().get(request, *args, **kwargs)
 
-#         return super().get(request, *args, **kwargs)  # отправляем пользователя обратно на GET-запрос.
+# дженерик для создание объявлений
+class PostCreateView(PermissionRequiredMixin,CreateView):
+    permission_required = ('MMORPG.add_post',)
+    template_name = 'MMORPG/post_create.html'
+    form_class = PostForm
 
-# class RegistrationView(TemplateView):
-#     model = User
-#     template_name = 'MMORPG/Registration.html'
-#     context_object_name = 'user'
+    def post(self, request):
+        form = self.form_class(request.POST)
 
+        if form.is_valid():
+            form.save()
 
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         # context['clicked'] =  User.objects.get(id=self.request.user.id, is_active=True)
-#         return context
-
-def signup(request):
-    # if request.method == 'POST':
-    form = SignUpForm(request.POST)
-
-    if form.is_valid():
-        form.save()
-        username = form.cleaned_data.get('username')
-        raw_password = form.cleaned_data.get('password1')
-        user = authenticate(username=username, password=raw_password)
-        login(request, user)
-        return redirect('../registration/')
-    return render(request, 'MMORPG/Registration.html', {'form': form})
+        return super().get(request)
 
 
+# дженерик для редактирования объявлений
+class PostUpdateView(PermissionRequiredMixin,UpdateView):
+    permission_required = ('MMORPG.change_post',)
+    template_name = 'MMORPG/post_create.html'
+    form_class = PostForm
+
+    def get_object(self,**kwargs):
+        id = self.kwargs.get('pk')
+        return Post.objects.get(pk=id)
+
+# дженерик для для получения деталей о объявлений
+class PostDetailView(PermissionRequiredMixin,DetailView):
+    permission_required = ('MMORPG.view_post',)
+    model = Post
+    context_object_name = 'post'
+    template_name = 'MMORPG/post_detail.html'
+    queryset = Post.objects.all()
 
 
-def mail(username,email,code):
-        html_content = render_to_string(
-            'MMORPG/mail.html',
-            {
-                'username': username,
-                'code':code,
-            }
-        )
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        post = kwargs.get('object',None)
+        context['comments'] = Comment.objects.filter(comment_post__id=post.id, comment_online=True)
+        return context
 
-        msg = EmailMultiAlternatives(
-            subject= f'Подтвердите вашу почту, {username}!',
-            from_email= 'arseniy.reima@gmail.com',
-            to=[email],  # это то же, что и recipients_list
-        )
-        msg.attach_alternative(html_content, "text/html")  # добавляем html
+    def post(self,request, pk, *args, **kwargs):
+        user = request.user
+        comment = request.POST['text']
+        post = Post.objects.get(id=pk)
+        Comment.objects.create(comment_text=comment, comment_user=user, comment_post=post)
 
-        msg.send()  # отсылаем
+        return super().get(request)
 
 
-# def post(self,request, *args,**kwargs):
 
-#     username = request.POST['username']
-#     password = request.POST['password']
-#     email = request.POST['email']
-#     user = authenticate(request, username=username, password=password,email=email)
-#     if user is not None:
-#         login(request, user)
-#         # Redirect to a success page.
-#         redirect('registration/') # arsemon8@gmail.com
-#     else:
-#         print('NO!')
-#         # Return a 'disabled account' error message
-#         ...
-#     # if user is not None:
-#     #     code = OneTimeCode.objects.create(code=Random.choice('DFKJDHLSGFASDQEWR'))
-#     #     code.save()
-#     #     mail(username,email,code)
-#     #     if OneTimeCode.objects.filter(code=code, user__username=request.user).exists():
-#         # redirect('registration/') # arsemon8@gmail.com
 
-#     return super().get(request, *args, **kwargs)  # отправляем пользователя обратно на GET-запрос.
+def edit_profile(request):
+    pass
+
+def like_post(request):
+    pass
+
+
+
+

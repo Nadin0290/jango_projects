@@ -1,0 +1,27 @@
+{% if posts %}
+<h2>Кол во обьявлений: {{ posts|length }}</h2>
+        <table style="margin: 0 auto;font-size: 30px;margin-top: 50px;">
+            <tr>
+                <td>Функции</td>
+                <td>Заголовок</td>
+                <td>Контент</td>
+
+            </tr>
+            {% for post in posts %}
+            <tr>
+                <td>
+                    <a href="{% url 'post_detail' post.pk %}">{{ post.post_header|title }}</a> <br>
+                    <a href="{% url 'post_update' post.pk %}"><u>Редактировать</u></a>
+                </td>
+                <td>
+                    {{ post.post_header }}
+                </td>
+                <td>
+                    {{ post.post_content|safe }}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <h4>Нет обьявлений!</h4>
+    {% endif %}

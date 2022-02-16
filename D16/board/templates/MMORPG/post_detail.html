@@ -1,0 +1,48 @@
+{% extends 'head.html' %}
+
+{% load static %}
+{% block content %}
+
+<div class="content">
+  {% if post %}
+
+
+    <h2>{{ post.post_header }}</h2>
+    <ul style="font-size: 30px;">
+        <li>
+            Автор: {{post.post_author.author_name}}
+        </li>
+        <li>
+          Рейтинг: {{post.post_rating}}
+      </li>
+        <li>
+          Контент: {{post.post_content|safe}}
+      </li>
+
+    </ul>
+
+</div>
+
+<div class="comments">
+{% if comments %}
+<h2>Комменнтарии</h2>
+  {% for comment in comments %}
+  <p>{{comment.comment_date_time}}</p>
+  <h3>Пользователь: {{comment.comment_user}} -- {{comment.comment_text}}</h5>
+
+  {% endfor %}
+{% endif %}
+<hr>
+  <h2>Оставить комменнтарий</h2>
+  <form method="post">
+    {% csrf_token %}
+    <label for="text">Ваш комменнтарий</label>
+    <p><textarea rows="4" cols="50" name="text"></textarea></p>
+    <button type="submit">Отправить</button>
+  </form>
+</div>
+
+{% else %}
+  <h4>Нет такого обьявления!</h4>
+{% endif %}
+{% endblock content %}

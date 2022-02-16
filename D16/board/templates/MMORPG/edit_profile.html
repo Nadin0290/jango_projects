@@ -1,0 +1,13 @@
+{% extends "head.html" %}
+
+{% block content %}
+
+{% if request.user %}
+  <div class="form">
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+    <button type="submit">Изменить</button>
+  </div>
+  {% endif %}
+{% endblock %}

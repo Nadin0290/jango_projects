@@ -2,16 +2,31 @@
 
 {% load static %}
 {% block content %}
-    <section class="u-align-center u-clearfix u-section-1" id="sec-3ff7">
-      <div class="u-clearfix u-sheet u-sheet-1">
-        <h1 class="u-text u-text-default u-text-1">Post</h1>
-        <p class="u-text u-text-default u-text-2">Comment</p>
-      </div>
-    </section>
-    <section class="u-align-center u-clearfix u-section-2" id="carousel_bcd8">
-      <div class="u-clearfix u-sheet u-sheet-1">
-        <h1 class="u-text u-text-default u-text-1">Post</h1>
-        <p class="u-text u-text-default u-text-2">Comment</p>
-      </div>
-    </section>
+<h2>Входящие Комментарии</h2>
+{% if comments %}
+    {% for comment in comments %}
+        <div class="content">
+            <div class="header">
+                <div class="icon">
+                    {{post.post_author.author_icon|safe}}
+                </div>
+                <div class="header-content">
+                    <h4>{{ post.post_author }}</h4>
+                    <h3>{{ post.post_header }}</h3>
+                </div>
+            </div>
+            <div class="img-content">
+                {{ post.post_content|safe }}
+            </div>
+            <div class="link">
+                <a class="btn btn-primary my-2" href="{% url 'post_update' post.pk %}"><u>Редактировать</u></a>
+            </div>
+            <div >
+                <p>Хотел сюда вывести комментарии поста с проверкой автора но не смог :(</p>
+            </div>
+    {% endfor %}
+{% else %}
+    <h4>У вас еще нет постов!</h4>
+{% endif %}
+
 {% endblock content %}
