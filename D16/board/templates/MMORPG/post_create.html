@@ -6,6 +6,7 @@
 <h2>{{post.post_header}}</h2>
 <form method="post">
   {% csrf_token %}
+  <a href="{{request.META.HTTP_REFERER}}">Назад</a>
   {{ form.as_p }}
   <button type="submit">Создать</button>
 </form>

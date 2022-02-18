@@ -22,6 +22,13 @@
                     <a class="btn btn-primary my-2" href="{% url 'post_detail' post.pk %}">Подробнее</a>
                 </div>
                 {% if request.user.username %}
+                    {% if messages %}
+                        <ul class="messages">
+                            {% for message in messages %}
+                                <li>{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
                     <div class="like">
                         <form method="post">
                             {% csrf_token %}

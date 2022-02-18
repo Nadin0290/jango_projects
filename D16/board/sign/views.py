@@ -2,14 +2,10 @@ from django.contrib.auth.models import User
 from django.views.generic import TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import authenticate, login
-from django.shortcuts import redirect
-from django.contrib.auth.models import Group
-from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect, render
+
 from .forms import BasicSignupForm
-from MMORPG.models import Author
-from random import randint
-# from .models import MyUser
-from MMORPG.functions import send_code_by_mail
+
 
 
 class BaseRegisterView(LoginRequiredMixin,TemplateView):
@@ -19,6 +15,17 @@ class BaseRegisterView(LoginRequiredMixin,TemplateView):
 class BaseProfileView(LoginRequiredMixin,TemplateView):
     template_name = 'sign/profile.html'
 
+# после рефактроинга
+def loginPage(request):
+    username = request.POST.get('username')
+    password = request.POST.get('password')
+    user = authenticate(request, username=username, password=password)
+    if user is not None:
+        login(request, user)
+        return redirect('main_page')
+
+    context = {}
+    return render(request,'sign/login.html', context)
 
 
 # class RegisterView(TemplateView):

@@ -1,0 +1,17 @@
+{% extends "head.html" %}
+
+{% block content %}
+
+{% if request.user %}
+  <div class="content">
+    <a href="{{request.META.HTTP_REFERER}}">Назад</a>
+    <form action="" method="post">
+        {% csrf_token %}
+        <input type="text" placeholder="Username:" name="username">
+        <input type="password" placeholder="Password:" name="password">
+        <button type="submit">Войти</button>
+    </form>
+  </div>
+
+  {% endif %}
+{% endblock %}
