@@ -1,24 +1,9 @@
 from django.db import models
 from sign.models import User
-from .models import Author, Comment, Post
+from .models import Comment, Post
 from django.db.models.signals import post_save,pre_save,post_delete
 from django.dispatch import receiver
 from .functions import send_code_by_mail,send_users_comment,send_users_like, send_approved_comment, send_notapproved_comment
-
-
-@receiver(post_save, sender=Author)
-def send_code_by_email(sender, instance, created, **kwargs):
-    if created:
-        author_email = instance.author_email
-        code = instance.author_code
-        send_code_by_mail(author_email,code)
-
-# @receiver(pre_save, sender=Author)
-# def send_approvved_register_by_email(sender, instance, created, **kwargs):
-#     if created:
-#         author_email = instance.author_email
-#         code = instance.author_code
-#         send_code_by_mail(author_email,code)
 
 
 @receiver(post_save, sender=Comment)

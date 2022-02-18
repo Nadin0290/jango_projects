@@ -42,47 +42,12 @@ def authorPage(request): #proccess
                 post = Post.objects.get(id=post_id)
                 post.like()
                 post.save()
-
             except:
                 messages.error(request, 'Something wrong with post')
 
 
     context = {'author_posts':author_posts, 'filter': filter}
     return render(request,'MMORPG/author_posts.html', context)
-
-
-class RepliesView(ListView):
-    model = Comment
-    template_name = 'MMORPG/post_replies.html'
-    context_object_name = 'commentss'
-    queryset = Comment.objects.all()
-
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        post_id = self.kwargs.get('pk',None)
-        context['comments'] = Comment.objects.filter(comment_post__id=post_id, comment_online=False)
-        # context['comments'] = Comment.objects.all()
-        return context
-
-    def post(self,request, pk):
-        user = self.request.user
-        good_sign = self.request.POST.get('get_id')
-        bad_sign = self.request.POST.get('delete_id')
-        if good_sign is not None:
-            id = good_sign
-            comment = Comment.objects.get(id=id)
-            comment.comment_online = True
-            comment.save()
-        if bad_sign is not None:
-            id = bad_sign
-            comment = Comment.objects.get(id=id)
-            comment.delete()
-        return super().get(request)
-
-
-class FeedbackView(TemplateView):
-    template_name = 'MMORPG/Feedback.html'
 
 # после рефактроинга
 def postCreatePage(request):
@@ -92,15 +57,37 @@ def postCreatePage(request):
         if user.has_perm('MMORPG.change_post'):
             if form.is_valid():
                 post = form.save()
-                return redirect(f'{post.get_absolute_url()}')
+                return redirect('post_detail', pk=post.id)
+            else:
+                messages.error(request, 'Something wrong with post, please try again')
         else:
-            messages.error("You don't have permission!")
+            messages.error(request,"You don't have permission!")
 
 
     context = {'form':form}
     return render(request,'MMORPG/post_create.html', context)
 
 
+# после рефактроинга (не придумал как отобразить несколько ПОСТ запрсоов в одном представлении кроме такого веселого подхода)
+def repliesPage(request, pk):
+    post_id = Post.objects.get(id=pk)
+    comments = Comment.objects.filter(comment_post__id=post_id, comment_online=False)
+    good_sign = request.POST.get('get_id')
+    bad_sign = request.POST.get('delete_id')
+
+    if good_sign is not None:
+        id = good_sign
+        comment = Comment.objects.get(id=id)
+        comment.comment_online = True
+        comment.save()
+
+    elif bad_sign is not None:
+        id = bad_sign
+        comment = Comment.objects.get(id=id)
+        comment.delete()
+
+    context = {'comments':comments}
+    return render(request,'MMORPG/post_create.html', context)
 
 # после рефактроинга
 def postUpdatePage(request, pk):
@@ -114,9 +101,9 @@ def postUpdatePage(request, pk):
                 form.save()
                 return redirect('main_page')
             else:
-                messages.error("Something went wrong!")
+                messages.error(request,"Something went wrong!")
         else:
-            messages.error("You don't have permission!")
+            messages.error(request,"You don't have permission!")
 
 
     context = {'form':form}
@@ -140,14 +127,6 @@ def postDetailPage(request, pk):
     context = {'comments':comments, 'post':post}
     return render(request,'MMORPG/post_detail.html', context)
 
-
-
-
-def edit_profile(request):
-    pass
-
-def like_post(request):
-    pass
 
 
 
@@ -224,4 +203,33 @@ def like_post(request):
 #             post = Post.objects.get(id=post_id)
 #             post.like()
 #             post.save()
+#         return super().get(request)
+
+# class RepliesView(ListView):
+#     model = Comment
+#     template_name = 'MMORPG/post_replies.html'
+#     context_object_name = 'comments'
+#     queryset = Comment.objects.all()
+
+
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         post_id = self.kwargs.get('pk',None)
+#         context['comments'] = Comment.objects.filter(comment_post__id=post_id, comment_online=False)
+#         # context['comments'] = Comment.objects.all()
+#         return context
+
+#     def post(self,request, pk):
+#         user = self.request.user
+#         good_sign = self.request.POST.get('get_id')
+#         bad_sign = self.request.POST.get('delete_id')
+#         if good_sign is not None:
+#             id = good_sign
+#             comment = Comment.objects.get(id=id)
+#             comment.comment_online = True
+#             comment.save()
+#         if bad_sign is not None:
+#             id = bad_sign
+#             comment = Comment.objects.get(id=id)
+#             comment.delete()
 #         return super().get(request)

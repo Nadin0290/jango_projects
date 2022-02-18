@@ -1,33 +1,39 @@
-# from django.contrib.auth.models import User
-from django.views.generic import TemplateView
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth import authenticate, login
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import Group
-
 from .forms import UserForm
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+
 # после рефактроинга
 def loginPage(request):
-    username = request.POST.get('username')
-    password = request.POST.get('password')
-    user = authenticate(request, username=username, password=password)
-    if user is not None:
-        login(request, user)
-        return redirect('main_page')
-
-    context = {}
-    return render(request,'sign/login.html', context)
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        user = authenticate(request, email=email, password=password)
+        print('n')
+        if user is not None:
+            print('i')
+            login(request, user)
+            return redirect('profile')
+        else:
+            print('o')
+            messages.error(request,'Incorrect email or password')
+    return render(request,'sign/login.html', {})
 
 # после рефактроинга
-def profilePage(request):
-    user = request.user
-    if not user.is_authenticated:
-        messages.error('Login please or register')
+@login_required
+def logoutPage(request):
+    try:
+        logout(request)
+    except:
+        messages.error(request,'Something wrong with logout, please try again')
+    return render(request,'sign/logout.html', {})
 
-    context = {}
-    return render(request,'sign/profile.html', context)
+# после рефактроинга
+@login_required
+def profilePage(request):
+    return render(request,'sign/profile.html', {})
 
 # после рефактроинга
 def registerPage(request):
