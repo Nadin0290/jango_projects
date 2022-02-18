@@ -36,3 +36,30 @@
     border: 1px solid black;
 }
 
+.form-page{
+    display: flex;
+    flex-direction: column;
+    border: 2px solid black;
+    padding: 100px;
+}
+
+.form{
+    /* border: 2px solid black; */
+    font-size: 25px;
+}
+
+.avatar {
+    position: relative;
+    display: inline-block;
+    border-radius: 50%;
+    border: 2px solid var(--color-main);
+    width: 120px;
+}
+
+.avatar img {
+    display: block;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+    width: 120px;
+}

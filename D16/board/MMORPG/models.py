@@ -1,6 +1,6 @@
-from tkinter import CASCADE
 from django.db import models
-from django.contrib.auth.models import User
+from sign.models import User
+
 
 
 class Author(models.Model):

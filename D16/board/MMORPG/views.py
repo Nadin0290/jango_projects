@@ -1,37 +1,16 @@
-from logging import exception
-from pickletools import read_uint1
 from django.shortcuts import render,redirect
-from django.contrib.auth.models import User
-from django.views.generic import TemplateView, CreateView,ListView,DeleteView, UpdateView, DetailView
-from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.contrib.auth import authenticate, login
+from sign.models import User
+from django.views.generic import TemplateView, ListView
 from .models import *
 from django.core.mail import send_mail
-from django.core.mail import EmailMultiAlternatives  # импортируем класс для создание объекта письма с html
-from django.template.loader import render_to_string
-from django.contrib.auth.decorators import login_required
 # Create your views here.
 from .forms import *
 from random import randint
 from .filters import PostFilter
-
 from django.contrib import messages
 
-# class MainView(ListView):
-#     model = Post
-#     template_name = 'MMORPG/index.html'
-#     context_object_name = 'posts'
-#     queryset = Post.objects.all()
-
-#     def post(self,request, *args, **kwargs):
-#         post_id = request.POST.get('cur_post_id', None)
-#         if post_id is not None:
-#             post = Post.objects.get(id=post_id)
-#             post.like()
-#             post.save()
-#         return super().get(request)
-
-def indexPage(request): #ready
+#после рефакторинга
+def indexPage(request):
     posts = Post.objects.all()
 
     if request.method == 'POST':
@@ -49,17 +28,7 @@ def indexPage(request): #ready
     context = {'posts':posts, }
     return render(request,'MMORPG/index.html', context)
 
-# class AuthorView(ListView):
-#     model = Post
-#     template_name = 'MMORPG/author_posts.html'
 
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         user = self.request.user
-#         authors_posts = Post.objects.filter(post_author__author_name=user)
-#         context['author_posts'] = authors_posts
-#         context['filter'] = PostFilter(self.request.GET, queryset=authors_posts)
-#         return context
 
 def authorPage(request): #proccess
     user = request.user
@@ -114,20 +83,6 @@ class RepliesView(ListView):
 
 class FeedbackView(TemplateView):
     template_name = 'MMORPG/Feedback.html'
-
-# class LoginAuthView(PermissionRequiredMixin,TemplateView):
-#     template_name = 'MMORPG/login.html'
-#     success_url= '/registration/'
-
-#     def post(self,request, *args,**kwargs):
-#         username = request.POST['username']
-#         password = request.POST['password']
-#         user = authenticate(request, username=username, password=password)
-#         if user is not None:
-#             login(request, user)
-#             return redirect('../registration/')
-#         return super().get(request, *args, **kwargs)
-
 
 # после рефактроинга
 def postCreatePage(request):
@@ -244,3 +199,29 @@ def like_post(request):
 
 #         return super().get(request)
 
+# class AuthorView(ListView):
+#     model = Post
+#     template_name = 'MMORPG/author_posts.html'
+
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         user = self.request.user
+#         authors_posts = Post.objects.filter(post_author__author_name=user)
+#         context['author_posts'] = authors_posts
+#         context['filter'] = PostFilter(self.request.GET, queryset=authors_posts)
+#         return context
+
+
+# class MainView(ListView):
+#     model = Post
+#     template_name = 'MMORPG/index.html'
+#     context_object_name = 'posts'
+#     queryset = Post.objects.all()
+
+#     def post(self,request, *args, **kwargs):
+#         post_id = request.POST.get('cur_post_id', None)
+#         if post_id is not None:
+#             post = Post.objects.get(id=post_id)
+#             post.like()
+#             post.save()
+#         return super().get(request)

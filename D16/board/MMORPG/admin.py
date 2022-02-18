@@ -11,7 +11,6 @@ class AuthorAdmin(SummernoteModelAdmin):  # instead of ModelAdmin
 
 
 admin.site.register(Author,AuthorAdmin)
-# admin.site.register(Category)
 admin.site.register(Post, PostAdmin)
 admin.site.register(Comment)
 # admin.site.register(PostCategory)

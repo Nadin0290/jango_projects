@@ -1,20 +1,13 @@
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 from django.views.generic import TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import redirect, render
+from django.contrib.auth.models import Group
 
-from .forms import BasicSignupForm
-
-
-
-class BaseRegisterView(LoginRequiredMixin,TemplateView):
-    template_name = 'sign/signup.html'
-    form_class = BasicSignupForm
-
-class BaseProfileView(LoginRequiredMixin,TemplateView):
-    template_name = 'sign/profile.html'
-
+from .forms import UserForm
+from django.contrib import messages
 # после рефактроинга
 def loginPage(request):
     username = request.POST.get('username')
@@ -26,6 +19,43 @@ def loginPage(request):
 
     context = {}
     return render(request,'sign/login.html', context)
+
+# после рефактроинга
+def profilePage(request):
+    user = request.user
+    if not user.is_authenticated:
+        messages.error('Login please or register')
+
+    context = {}
+    return render(request,'sign/profile.html', context)
+
+# после рефактроинга
+def registerPage(request):
+    form = UserForm()
+
+    if request.method == 'POST':
+        form = UserForm(request.POST, request.FILES)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.username = user.username.lower()
+            user.save()
+            authors = Group.objects.get(name='authors')
+            authors.user_set.add(user)
+
+            login(request, user)
+            return redirect('profile')
+        else:
+            messages.error(request, 'Something wrong with register, please try again')
+    context = {'form':form,}
+    return render(request, 'sign/register.html', context)
+
+''' до рефакторинга '''
+# class BaseRegisterView(LoginRequiredMixin,TemplateView):
+#     template_name = 'sign/signup.html'
+#     form_class = BasicSignupForm
+
+# class BaseProfileView(LoginRequiredMixin,TemplateView):
+#     template_name = 'sign/profile.html'
 
 
 # class RegisterView(TemplateView):

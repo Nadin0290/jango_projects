@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from sign.models import User
 from .models import Author, Comment, Post
 from django.db.models.signals import post_save,pre_save,post_delete
 from django.dispatch import receiver
@@ -46,13 +46,13 @@ def send_notapproved_comment_by_email(sender, instance, **kwargs):
     send_notapproved_comment(comment,commented_user,author_post,commented_post)
 
 
-# @receiver(pre_save, sender=Post)
-# def send_like_by_email(sender, instance, **kwargs):
-#     liked_post = instance
-#     author_post = instance.post_author
-#     author_user = User.objects.get(username=author_post.author_name)
-#     author_email = author_user.email
-#     send_users_like(author_post,liked_post, author_email)
+@receiver(pre_save, sender=Post)
+def send_like_by_email(sender, instance, **kwargs):
+    liked_post = instance
+    author_post = instance.post_author
+    author_user = User.objects.get(username=author_post.author_name)
+    author_email = author_user.email
+    send_users_like(author_post,liked_post, author_email)
 
 
 
