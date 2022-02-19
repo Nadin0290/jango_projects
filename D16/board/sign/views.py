@@ -8,16 +8,14 @@ from django.contrib.auth.decorators import login_required
 # после рефактроинга
 def loginPage(request):
     if request.method == 'POST':
-        email = request.POST.get('email')
+        username = request.POST.get('username')
         password = request.POST.get('password')
-        user = authenticate(request, email=email, password=password)
-        print('n')
+        user = authenticate(request, username=username, password=password)
+        print(user)
         if user is not None:
-            print('i')
             login(request, user)
             return redirect('profile')
         else:
-            print('o')
             messages.error(request,'Incorrect email or password')
     return render(request,'sign/login.html', {})
 

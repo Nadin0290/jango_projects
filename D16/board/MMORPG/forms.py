@@ -16,7 +16,7 @@ class PostForm(ModelForm):
     '''Форма создание статей для пользователей (которые вошли в систему)'''
     class Meta:
         model = Post
-        fields = ['post_author','post_header','post_category','post_content',]
+        fields = ['post_header','post_category','post_content',]
         widgets = {
             'post_content': SummernoteWidget(),
         }

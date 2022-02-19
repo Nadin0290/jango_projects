@@ -13,8 +13,8 @@
     {% for post in filter.qs %}
         <div class="content">
             <div class="header">
-                <div class="icon">
-                    {{post.post_author.author_icon|safe}}
+                <div class="avatar">
+                    <img src="{{post.post_author.avatar.url}}" alt="">
                 </div>
                 <div class="header-content">
                     <h4>{{ post.post_author }}</h4>

@@ -6,6 +6,7 @@ urlpatterns = [
     path('' , indexPage, name = 'main_page'),
     path('add/', postCreatePage, name='post_create'),
     path('<int:pk>/',postDetailPage, name='post_detail'),
+    path('<int:pk>/like',postLikePage, name='post_like'),
     path('<int:pk>/edit/', postUpdatePage, name='post_update'),
     path('myposts/',authorPage, name='author_posts'),
     path('myposts/replies/<int:pk>', repliesPage, name='post_replies'),

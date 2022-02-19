@@ -3,7 +3,7 @@ from sign.models import User
 
 
 class Post(models.Model):
-    post_author = models.ForeignKey(User, on_delete=models.CASCADE)
+    post_author = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     post_header = models.CharField(max_length=64)
     post_rating = models.IntegerField(default=0)
     post_content = models.CharField(max_length=512, default='')

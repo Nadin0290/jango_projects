@@ -2,7 +2,6 @@ from django.shortcuts import render,redirect
 from sign.models import User
 from django.views.generic import TemplateView, ListView
 from .models import *
-from django.core.mail import send_mail
 # Create your views here.
 from .forms import *
 from random import randint
@@ -12,39 +11,27 @@ from django.contrib import messages
 #после рефакторинга
 def indexPage(request):
     posts = Post.objects.all()
-
-    if request.method == 'POST':
-        post_id = request.POST.get('cur_post_id', None)
-        if post_id is not None:
-            try:
-                post = Post.objects.get(id=post_id)
-                post.like()
-                post.save()
-                return redirect('main_page')
-            except:
-                messages.error(request, 'Something wrong with post')
-
-
     context = {'posts':posts, }
     return render(request,'MMORPG/index.html', context)
 
+#после рефакторинга
+def postLikePage(request, pk):
+    try:
+        post = Post.objects.get(id=pk)
+        post.like()
+        post.save()
+        return redirect('post_detail', pk=post.id)
+    except:
+        messages.error(request, 'Something wrong with post')
 
+    context = {}
+    return render(request,'MMORPG/post_like.html', context)
 
-def authorPage(request): #proccess
+#после рефакторинга
+def authorPage(request):
     user = request.user
-    author_posts = Post.objects.filter(post_author__author_name=user)
+    author_posts = Post.objects.filter(post_author__username=user)
     filter = PostFilter(request.GET, queryset=author_posts)
-
-    if request.method == 'POST':
-        post_id = request.POST.get('cur_post_id', None)
-        if post_id is not None:
-            try:
-                post = Post.objects.get(id=post_id)
-                post.like()
-                post.save()
-            except:
-                messages.error(request, 'Something wrong with post')
-
 
     context = {'author_posts':author_posts, 'filter': filter}
     return render(request,'MMORPG/author_posts.html', context)
@@ -57,6 +44,8 @@ def postCreatePage(request):
         if user.has_perm('MMORPG.change_post'):
             if form.is_valid():
                 post = form.save()
+                post.post_author = user
+                post.save()
                 return redirect('post_detail', pk=post.id)
             else:
                 messages.error(request, 'Something wrong with post, please try again')
@@ -70,8 +59,8 @@ def postCreatePage(request):
 
 # после рефактроинга (не придумал как отобразить несколько ПОСТ запрсоов в одном представлении кроме такого веселого подхода)
 def repliesPage(request, pk):
-    post_id = Post.objects.get(id=pk)
-    comments = Comment.objects.filter(comment_post__id=post_id, comment_online=False)
+    post = Post.objects.get(id=pk)
+    comments = Comment.objects.filter(comment_post__id=post.id, comment_online=False)
     good_sign = request.POST.get('get_id')
     bad_sign = request.POST.get('delete_id')
 
@@ -87,7 +76,7 @@ def repliesPage(request, pk):
         comment.delete()
 
     context = {'comments':comments}
-    return render(request,'MMORPG/post_create.html', context)
+    return render(request,'MMORPG/post_replies.html', context)
 
 # после рефактроинга
 def postUpdatePage(request, pk):
@@ -119,7 +108,7 @@ def postDetailPage(request, pk):
         if user.has_perm('MMORPG.view_post'):
             comment = request.POST.get('text')
             Comment.objects.create(comment_text=comment, comment_user=user, comment_post=post)
-            return redirect('main_page')
+            return redirect('post_detail', pk=post.id)
         else:
             messages.error("You don't have permission!")
 
